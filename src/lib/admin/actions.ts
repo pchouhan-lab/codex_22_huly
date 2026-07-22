@@ -63,7 +63,7 @@ async function fieldValue(field: AdminField, formData: FormData) {
     const uploaded = formData.get(field.name);
     const existing = String(formData.get(`current_${field.name}`) ?? "");
 
-    if (uploaded instanceof File) {
+    if (uploaded instanceof File && uploaded.size > 0) {
       return saveUploadedImage(uploaded, existing);
     }
 

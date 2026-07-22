@@ -51,15 +51,9 @@ export const adminResources: AdminResourceConfig[] = [
     singletonId: "hero",
     listFields: ["headline"],
     fields: [
-      { name: "badgeText", label: "Badge Text", type: "text", required: true },
-      { name: "headline", label: "Headline", type: "text", required: true },
-      { name: "subtitle", label: "Subtitle", type: "textarea", required: true },
-      { name: "backgroundImage", label: "Background Image", type: "image", required: true },
-      { name: "primaryCtaText", label: "Primary CTA Text", type: "text", required: true },
-      { name: "primaryCtaLink", label: "Primary CTA Link", type: "text", required: true },
-      { name: "secondaryCtaText", label: "Secondary CTA Text", type: "text", required: true },
-      { name: "secondaryCtaLink", label: "Secondary CTA Link", type: "text", required: true },
-      { name: "trustItems", label: "Trust Items", type: "stringList", required: true, helper: "One item per line." }
+      { name: "headline", label: "Title", type: "text", required: true },
+      { name: "backgroundImage", label: "Image", type: "image", required: true },
+      { name: "subtitle", label: "Description", type: "textarea", required: true }
     ]
   },
   {

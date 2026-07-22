@@ -14,7 +14,7 @@ export function AdminForm({
   submitLabel?: string;
 }) {
   return (
-    <form className="admin-form" action={action}>
+    <form className="admin-form" action={action} encType="multipart/form-data">
       {config.fields.map((field) => {
         const value = data?.[field.name];
 
