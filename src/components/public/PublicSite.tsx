@@ -383,9 +383,11 @@ export function PublicSite({ content }: { content: PublicSiteContent }) {
                 {category.image ? <img className="category-card-image" src={category.image} alt="" /> : null}
                 <span className="category-card-overlay" />
                 <span className="category-card-content">
-                  <span className="category-icon">
-                    <CategoryVisual icon={category.icon} />
-                  </span>
+                  {!category.image ? (
+                    <span className="category-icon">
+                      <CategoryVisual icon={category.icon} />
+                    </span>
+                  ) : null}
                   <h3>{category.label}</h3>
                   <p>{category.description}</p>
                   <span className="category-card-link">Explore coverage <ArrowRight size={16} aria-hidden="true" /></span>

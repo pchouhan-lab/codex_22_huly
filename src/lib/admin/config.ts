@@ -83,12 +83,17 @@ export const adminResources: AdminResourceConfig[] = [
     listFields: ["image", "label", "slug", "published", "order"],
     fields: [
       {
-        name: "icon",
-        label: "Icon Identifier",
-        type: "text",
-        helper: "Lucide icon name used when no card image is uploaded, such as car or home."
+        name: "image",
+        label: "Insurance Image",
+        type: "image",
+        helper: "Upload a landscape image. It fills the insurance card and detail page automatically."
       },
-      { name: "image", label: "Card and Detail Image", type: "image", helper: "Optional. Upload a landscape image for this insurance service." },
+      {
+        name: "icon",
+        label: "Fallback Icon Identifier",
+        type: "text",
+        helper: "Only used when no insurance image is uploaded, such as car or home."
+      },
       { name: "label", label: "Label", type: "text", required: true },
       { name: "slug", label: "Page URL", type: "text", required: true, helper: "Lowercase URL name, for example auto-insurance." },
       { name: "description", label: "Card Description", type: "textarea", required: true },
