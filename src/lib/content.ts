@@ -36,15 +36,9 @@ export type PublicSiteContent = {
     headerPhone: string;
   };
   hero: {
-    badgeText: string;
     headline: string;
     subtitle: string;
     backgroundImage: string;
-    primaryCtaText: string;
-    primaryCtaLink: string;
-    secondaryCtaText: string;
-    secondaryCtaLink: string;
-    trustItems: string[];
   };
   features: PublicFeatureCard[];
   categories: PublicInsuranceCategory[];
@@ -133,15 +127,9 @@ export async function getPublicSiteContent(): Promise<PublicSiteContent> {
       headerPhone: site.headerPhone
     },
     hero: {
-      badgeText: heroRow.badgeText,
       headline: heroRow.headline,
       subtitle: heroRow.subtitle,
-      backgroundImage: heroRow.backgroundImage,
-      primaryCtaText: heroRow.primaryCtaText,
-      primaryCtaLink: heroRow.primaryCtaLink,
-      secondaryCtaText: heroRow.secondaryCtaText,
-      secondaryCtaLink: heroRow.secondaryCtaLink,
-      trustItems: parseJsonArray<string>(heroRow.trustItems, [])
+      backgroundImage: heroRow.backgroundImage
     },
     features: featureRows.map((feature) => ({
       id: feature.id,

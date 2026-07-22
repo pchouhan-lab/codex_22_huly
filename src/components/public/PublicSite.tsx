@@ -263,26 +263,8 @@ export function PublicSite({ content }: { content: PublicSiteContent }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.85, ease: "easeOut" }}
         >
-          <p className="section-kicker">{content.hero.badgeText}</p>
           <h1>{renderHeadline(content.hero.headline)}</h1>
           <p className="hero-subtitle">{content.hero.subtitle}</p>
-          <div className="hero-actions">
-            <a className="btn btn-primary" href={content.hero.primaryCtaLink}>
-              {content.hero.primaryCtaText}
-              <ArrowRight size={18} aria-hidden="true" />
-            </a>
-            <a className="btn btn-secondary" href={content.hero.secondaryCtaLink}>
-              {content.hero.secondaryCtaText}
-            </a>
-          </div>
-          <div className="trust-row" aria-label="Agency highlights">
-            {content.hero.trustItems.map((item) => (
-              <span key={item}>
-                <Check size={18} aria-hidden="true" />
-                {item}
-              </span>
-            ))}
-          </div>
         </motion.div>
       </section>
 

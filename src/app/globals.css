@@ -237,14 +237,6 @@ textarea {
   font-size: clamp(1.04rem, 2vw, 1.32rem);
 }
 
-.hero-actions {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 14px;
-  margin-top: 34px;
-}
-
 .btn {
   min-height: 52px;
   padding: 0 24px;
@@ -275,27 +267,6 @@ textarea {
   color: var(--white);
   border: 1px solid rgba(255, 255, 255, 0.42);
   background: rgba(255, 255, 255, 0.1);
-}
-
-.trust-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 30px;
-}
-
-.trust-row span {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  min-height: 38px;
-  padding: 0 14px;
-  color: rgba(255, 255, 255, 0.95);
-  background: rgba(255, 255, 255, 0.12);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  font-weight: 700;
 }
 
 .features-section,
@@ -1200,13 +1171,8 @@ textarea {
     padding: 190px 14px 78px;
   }
 
-  .hero-actions,
   .form-grid {
     grid-template-columns: 1fr;
-  }
-
-  .hero-actions {
-    display: grid;
   }
 
   .btn,
