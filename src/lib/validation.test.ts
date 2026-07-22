@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import { describe, it } from "node:test";
+import { formatPhoneNumberInput } from "./contact-rules";
 import { contactSubmissionSchema } from "./validation";
 
 describe("contactSubmissionSchema", () => {
@@ -39,7 +40,7 @@ describe("contactSubmissionSchema", () => {
     assert.equal(result.success, false);
   });
 
-  it("rejects messages that are too short", () => {
+  it("accepts short non-empty messages", () => {
     const result = contactSubmissionSchema.safeParse({
       name: "Jane Smith",
       email: "jane@example.com",
@@ -48,7 +49,12 @@ describe("contactSubmissionSchema", () => {
       company: ""
     });
 
-    assert.equal(result.success, false);
+    assert.equal(result.success, true);
+  });
+
+  it("formats phone numbers for the contact form", () => {
+    assert.equal(formatPhoneNumberInput("5155550101"), "(515) 555-0101");
+    assert.equal(formatPhoneNumberInput("15155550101"), "+1 (515) 555-0101");
   });
 
   it("trims valid submission values", () => {

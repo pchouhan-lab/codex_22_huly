@@ -8,6 +8,9 @@ export type ContactFormValues = {
 
 export type ContactField = keyof ContactFormValues;
 export type ContactFormErrors = Partial<Record<ContactField, string>>;
+export type NormalizedContactFormValues = Omit<ContactFormValues, "company"> & {
+  company: string;
+};
 
 export const CONTACT_LIMITS = {
   nameMin: 2,
@@ -16,7 +19,7 @@ export const CONTACT_LIMITS = {
   phoneMax: 40,
   phoneDigitsMin: 7,
   phoneDigitsMax: 15,
-  messageMin: 10,
+  messageMin: 1,
   messageMax: 3000
 } as const;
 
@@ -26,7 +29,7 @@ const phonePattern = /^\+?[\d\s().-]+$/;
 
 export const contactFieldOrder = ["name", "email", "phone", "message"] as const;
 
-export function normalizeContactForm(values: ContactFormValues): ContactFormValues {
+export function normalizeContactForm(values: ContactFormValues): NormalizedContactFormValues {
   return {
     name: values.name.trim(),
     email: values.email.trim(),
@@ -38,6 +41,28 @@ export function normalizeContactForm(values: ContactFormValues): ContactFormValu
 
 export function countPhoneDigits(value: string) {
   return value.replace(/\D/g, "").length;
+}
+
+export function formatPhoneNumberInput(value: string) {
+  const digits = value.replace(/\D/g, "").slice(0, 11);
+  const hasCountryCode = digits.length > 10 && digits.startsWith("1");
+  const phoneDigits = hasCountryCode ? digits.slice(1) : digits.slice(0, 10);
+
+  if (!phoneDigits) {
+    return "";
+  }
+
+  const areaCode = phoneDigits.slice(0, 3);
+  const prefix = phoneDigits.slice(3, 6);
+  const lineNumber = phoneDigits.slice(6, 10);
+  const formatted =
+    phoneDigits.length <= 3
+      ? areaCode
+      : phoneDigits.length <= 6
+        ? `(${areaCode}) ${prefix}`
+        : `(${areaCode}) ${prefix}-${lineNumber}`;
+
+  return hasCountryCode ? `+1 ${formatted}` : formatted;
 }
 
 export function validateContactForm(values: ContactFormValues): ContactFormErrors {

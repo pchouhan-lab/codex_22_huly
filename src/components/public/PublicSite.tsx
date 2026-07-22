@@ -23,7 +23,9 @@ import {
 import {
   CONTACT_LIMITS,
   contactFieldOrder,
+  formatPhoneNumberInput,
   hasContactErrors,
+  normalizeContactForm,
   validateContactForm,
   type ContactField,
   type ContactFormErrors
@@ -93,7 +95,9 @@ function ContactForm() {
   const [serverMessage, setServerMessage] = useState("");
 
   function updateField(field: keyof ContactState, value: string) {
-    setForm((current) => ({ ...current, [field]: value }));
+    const nextValue = field === "phone" ? formatPhoneNumberInput(value) : value;
+
+    setForm((current) => ({ ...current, [field]: nextValue }));
     setErrors((current) => ({ ...current, [field]: undefined }));
     setStatus("idle");
     setServerMessage("");
@@ -106,7 +110,13 @@ function ContactForm() {
   }
 
   function validateField(field: ContactField, value: string) {
-    const nextErrors = validateContactForm({ ...form, [field]: value, company: "" });
+    const nextValue = field === "phone" ? formatPhoneNumberInput(value) : value;
+    const nextErrors = validateContactForm({ ...form, [field]: nextValue, company: "" });
+
+    if (field === "phone" && nextValue !== form.phone) {
+      setForm((current) => ({ ...current, phone: nextValue }));
+    }
+
     setErrors((current) => ({ ...current, [field]: nextErrors[field] }));
   }
 
@@ -126,8 +136,15 @@ function ContactForm() {
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    const submitData = normalizeContactForm({
+      ...form,
+      phone: formatPhoneNumberInput(form.phone),
+      company: ""
+    });
 
-    if (!validate()) {
+    setForm((current) => ({ ...current, ...submitData, company: "" }));
+
+    if (!validate(submitData)) {
       return;
     }
 
@@ -142,7 +159,7 @@ function ContactForm() {
         headers: {
           "Content-Type": "application/json"
         },
-        body: JSON.stringify(form)
+        body: JSON.stringify(submitData)
       });
     } catch {
       setStatus("error");
@@ -223,6 +240,7 @@ function ContactForm() {
           aria-invalid={Boolean(errors.phone)}
           aria-describedby={errors.phone ? "contact-phone-error" : undefined}
           maxLength={CONTACT_LIMITS.phoneMax}
+          pattern="^\\+?1?\\s?\\(?\\d{3}\\)?[\\s.-]?\\d{3}[\\s.-]?\\d{4}$"
           required
         />
         {errors.phone ? <small id="contact-phone-error">{errors.phone}</small> : null}
