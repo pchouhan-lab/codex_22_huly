@@ -52,6 +52,27 @@ Only emails listed in `ADMIN_EMAILS` can complete sign-in.
 
 Use an always-on Node host with a persistent filesystem for `prisma/dev.db` and uploaded images. Serverless platforms such as Vercel and Netlify are not appropriate for the SQLite file requirement.
 
+### Railway
+
+Use repository root `.` for the Railway service. The app listens on Railway's `PORT` automatically through `npm start`.
+
+Required Railway variables:
+
+```bash
+DATABASE_URL="file:./dev.db"
+GOOGLE_CLIENT_ID="..."
+GOOGLE_CLIENT_SECRET="..."
+NEXTAUTH_URL="https://your-railway-domain.up.railway.app"
+NEXTAUTH_SECRET="a-long-random-secret"
+ADMIN_EMAILS=pchouhan@starlab.co.in
+```
+
+After Railway gives you a public domain, add this callback URI in Google Cloud Console:
+
+```text
+https://your-railway-domain.up.railway.app/api/auth/callback/google
+```
+
 Build command:
 
 ```bash
