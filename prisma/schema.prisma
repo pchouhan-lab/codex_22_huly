@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model SiteSettings {
+  id          String   @id @default(cuid())
+  logoImage   String
+  logoText    String
+  logoSubtext String
+  navLinks    String   @default("[]")
+  headerPhone String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+model Hero {
+  id               String   @id @default(cuid())
+  badgeText        String
+  headline         String
+  subtitle         String
+  backgroundImage  String
+  primaryCtaText   String
+  primaryCtaLink   String
+  secondaryCtaText String
+  secondaryCtaLink String
+  trustItems       String   @default("[]")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model FeatureCard {
+  id           String   @id @default(cuid())
+  image        String
+  imagePending Boolean  @default(true)
+  title        String
+  description  String
+  buttonText   String
+  buttonLink   String
+  published    Boolean  @default(true)
+  order        Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model InsuranceCategory {
+  id        String   @id @default(cuid())
+  icon      String
+  label     String
+  published Boolean  @default(true)
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model AboutSection {
+  id           String   @id @default(cuid())
+  sectionLabel String
+  heading      String
+  subheading   String
+  bodyText1    String
+  bulletPoints String   @default("[]")
+  bodyText2    String
+  teamNote     String
+  image        String
+  badgeNumber  String
+  badgeLabel   String
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+}
+
+model ContactInfo {
+  id            String   @id @default(cuid())
+  sectionLabel  String
+  heading       String
+  subheading    String
+  introText     String
+  highlightText String
+  phone         String
+  email         String
+  address       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  phone     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FooterSettings {
+  id               String   @id @default(cuid())
+  tagline          String
+  address          String
+  phone            String
+  email            String
+  quickLinks       String   @default("[]")
+  insuranceLinks   String   @default("[]")
+  hoursWeekday     String
+  hoursWeekdayTime String
+  hoursWeekend     String
+  hoursWeekendTime String
+  copyrightText    String
+  footerTagline    String
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}

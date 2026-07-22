@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-label="Placeholder image for agent meeting feature">
+  <rect width="900" height="620" fill="#f2eee3"/>
+  <rect x="120" y="350" width="660" height="70" rx="18" fill="#c9a84c" opacity="0.65"/>
+  <circle cx="290" cy="235" r="62" fill="#5c1a1b"/>
+  <rect x="225" y="306" width="130" height="135" rx="48" fill="#5c1a1b" opacity="0.9"/>
+  <circle cx="455" cy="220" r="66" fill="#3fa9e0"/>
+  <rect x="385" y="292" width="140" height="150" rx="52" fill="#3fa9e0" opacity="0.9"/>
+  <circle cx="620" cy="238" r="60" fill="#7a2526"/>
+  <rect x="556" y="306" width="128" height="136" rx="48" fill="#7a2526" opacity="0.9"/>
+  <rect x="374" y="370" width="160" height="95" rx="10" fill="#ffffff" stroke="#e8e3d4" stroke-width="6"/>
+  <text x="450" y="558" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#5c1a1b">Image pending replacement</text>
+</svg>

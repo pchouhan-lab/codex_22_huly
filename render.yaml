@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: muhlenbruch-insurance
+    env: node
+    plan: starter
+    buildCommand: npm ci && npm run db:deploy && npm run db:seed && npm run build
+    startCommand: npm start
+    disk:
+      name: sqlite-data
+      mountPath: /opt/render/project/src/prisma
+      sizeGB: 1
+    envVars:
+      - key: DATABASE_URL
+        value: file:./dev.db
+      - key: ADMIN_EMAILS
+        value: pchouhan@starlab.co.in
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: NEXTAUTH_SECRET
+        generateValue: true

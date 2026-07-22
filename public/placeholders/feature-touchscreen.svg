@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="900" height="620" viewBox="0 0 900 620" role="img" aria-label="Placeholder image for insurance selector feature">
+  <rect width="900" height="620" fill="#e8e3d4"/>
+  <rect x="145" y="105" width="610" height="365" rx="28" fill="#1e1e1e"/>
+  <rect x="182" y="142" width="536" height="291" rx="18" fill="#f2eee3"/>
+  <rect x="235" y="205" width="145" height="90" rx="14" fill="#3fa9e0" opacity="0.9"/>
+  <rect x="405" y="205" width="145" height="90" rx="14" fill="#5c1a1b" opacity="0.9"/>
+  <rect x="575" y="205" width="95" height="90" rx="14" fill="#c9a84c" opacity="0.9"/>
+  <path d="M580 410 C628 360 675 335 742 328 L764 384 C702 397 656 423 616 474 Z" fill="#d7aa82" opacity="0.9"/>
+  <circle cx="576" cy="407" r="31" fill="#d7aa82"/>
+  <text x="450" y="558" text-anchor="middle" font-family="Inter, Arial, sans-serif" font-size="28" fill="#5c1a1b">Image pending replacement</text>
+</svg>

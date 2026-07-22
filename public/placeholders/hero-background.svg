@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1200" viewBox="0 0 1800 1200" role="img" aria-label="Insurance agency background placeholder">
+  <defs>
+    <linearGradient id="sky" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0" stop-color="#f7f2e4"/>
+      <stop offset="0.42" stop-color="#dce9ea"/>
+      <stop offset="1" stop-color="#5c1a1b"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#6f7d3a"/>
+      <stop offset="1" stop-color="#c9a84c"/>
+    </linearGradient>
+  </defs>
+  <rect width="1800" height="1200" fill="url(#sky)"/>
+  <path d="M0 820 C280 760 520 795 770 730 C1080 650 1320 735 1800 655 L1800 1200 L0 1200 Z" fill="url(#field)" opacity="0.88"/>
+  <path d="M0 950 C300 900 590 940 900 875 C1200 812 1490 860 1800 790 L1800 1200 L0 1200 Z" fill="#5c1a1b" opacity="0.38"/>
+  <rect x="1010" y="520" width="330" height="245" rx="10" fill="#f2eee3" opacity="0.9"/>
+  <path d="M970 550 L1175 405 L1385 550 Z" fill="#5c1a1b"/>
+  <rect x="1120" y="610" width="85" height="155" fill="#7a2526"/>
+  <rect x="1235" y="595" width="72" height="72" fill="#3fa9e0" opacity="0.7"/>
+  <circle cx="480" cy="355" r="150" fill="#f2eee3" opacity="0.4"/>
+  <path d="M410 360 C445 278 525 278 565 360 C530 332 448 332 410 360 Z" fill="#5c1a1b" opacity="0.6"/>
+  <path d="M486 360 L486 455" stroke="#5c1a1b" stroke-width="16" stroke-linecap="round" opacity="0.6"/>
+</svg>
