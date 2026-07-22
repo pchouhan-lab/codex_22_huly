@@ -20,6 +20,14 @@ import {
   SmilePlus,
   Wheat
 } from "lucide-react";
+import {
+  CONTACT_LIMITS,
+  contactFieldOrder,
+  hasContactErrors,
+  validateContactForm,
+  type ContactField,
+  type ContactFormErrors
+} from "@/lib/contact-rules";
 import type { PublicSiteContent } from "@/lib/content";
 
 const reveal = {
@@ -46,8 +54,6 @@ type ContactState = {
   message: string;
   company: string;
 };
-
-type FormErrors = Partial<Record<keyof ContactState, string>>;
 
 function renderHeadline(headline: string) {
   const highlight = "Trust";
@@ -82,39 +88,40 @@ function ContactForm() {
     message: "",
     company: ""
   });
-  const [errors, setErrors] = useState<FormErrors>({});
+  const [errors, setErrors] = useState<ContactFormErrors>({});
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const [serverMessage, setServerMessage] = useState("");
 
   function updateField(field: keyof ContactState, value: string) {
     setForm((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
+    setStatus("idle");
+    setServerMessage("");
   }
 
-  function validate() {
-    const nextErrors: FormErrors = {};
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-    if (!form.name.trim()) {
-      nextErrors.name = "Name is required.";
-    }
-
-    if (!form.email.trim()) {
-      nextErrors.email = "Email is required.";
-    } else if (!emailPattern.test(form.email)) {
-      nextErrors.email = "Enter a valid email address.";
-    }
-
-    if (!form.phone.trim()) {
-      nextErrors.phone = "Phone is required.";
-    }
-
-    if (!form.message.trim()) {
-      nextErrors.message = "Message is required.";
-    }
-
+  function validate(nextForm = form) {
+    const nextErrors = validateContactForm({ ...nextForm, company: "" });
     setErrors(nextErrors);
-    return Object.keys(nextErrors).length === 0;
+    return !hasContactErrors(nextErrors);
+  }
+
+  function validateField(field: ContactField, value: string) {
+    const nextErrors = validateContactForm({ ...form, [field]: value, company: "" });
+    setErrors((current) => ({ ...current, [field]: nextErrors[field] }));
+  }
+
+  function formErrorsFromServer(fieldErrors?: Record<string, string[]>) {
+    const nextErrors: ContactFormErrors = {};
+
+    for (const field of contactFieldOrder) {
+      const message = fieldErrors?.[field]?.[0];
+
+      if (message) {
+        nextErrors[field] = message;
+      }
+    }
+
+    return nextErrors;
   }
 
   async function handleSubmit(event: FormEvent<HTMLFormElement>) {
@@ -127,13 +134,21 @@ function ContactForm() {
     setStatus("submitting");
     setServerMessage("");
 
-    const response = await fetch("/api/contact", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(form)
-    });
+    let response: Response;
+
+    try {
+      response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(form)
+      });
+    } catch {
+      setStatus("error");
+      setServerMessage("We could not send your message right now. Please try again.");
+      return;
+    }
 
     const payload = (await response.json().catch(() => ({}))) as {
       message?: string;
@@ -143,16 +158,13 @@ function ContactForm() {
     if (!response.ok) {
       setStatus("error");
       setServerMessage(payload.message ?? "Please check your details and try again.");
-      setErrors(
-        Object.fromEntries(
-          Object.entries(payload.errors ?? {}).map(([field, messages]) => [field, messages?.[0] ?? "Invalid value."])
-        ) as FormErrors
-      );
+      setErrors(formErrorsFromServer(payload.errors));
       return;
     }
 
     setStatus("success");
     setServerMessage(payload.message ?? "Thank you, we will contact you shortly.");
+    setErrors({});
     setForm({ name: "", email: "", phone: "", message: "", company: "" });
   }
 
@@ -163,44 +175,63 @@ function ContactForm() {
         <label>
           <span>Name*</span>
           <input
+            id="contact-name"
+            name="name"
             value={form.name}
             onChange={(event) => updateField("name", event.target.value)}
+            onBlur={(event) => validateField("name", event.target.value)}
             placeholder="Your full name"
             autoComplete="name"
             aria-invalid={Boolean(errors.name)}
+            aria-describedby={errors.name ? "contact-name-error" : undefined}
+            maxLength={CONTACT_LIMITS.nameMax}
             required
           />
-          {errors.name ? <small>{errors.name}</small> : null}
+          {errors.name ? <small id="contact-name-error">{errors.name}</small> : null}
         </label>
         <label>
           <span>Email*</span>
           <input
+            id="contact-email"
+            name="email"
+            type="email"
             value={form.email}
             onChange={(event) => updateField("email", event.target.value)}
+            onBlur={(event) => validateField("email", event.target.value)}
             placeholder="your@email.com"
             autoComplete="email"
             inputMode="email"
             aria-invalid={Boolean(errors.email)}
+            aria-describedby={errors.email ? "contact-email-error" : undefined}
+            maxLength={CONTACT_LIMITS.emailMax}
             required
           />
-          {errors.email ? <small>{errors.email}</small> : null}
+          {errors.email ? <small id="contact-email-error">{errors.email}</small> : null}
         </label>
       </div>
       <label>
         <span>Phone*</span>
         <input
+          id="contact-phone"
+          name="phone"
+          type="tel"
           value={form.phone}
           onChange={(event) => updateField("phone", event.target.value)}
+          onBlur={(event) => validateField("phone", event.target.value)}
           placeholder="(515) 852-4156"
           autoComplete="tel"
           aria-invalid={Boolean(errors.phone)}
+          aria-describedby={errors.phone ? "contact-phone-error" : undefined}
+          maxLength={CONTACT_LIMITS.phoneMax}
           required
         />
-        {errors.phone ? <small>{errors.phone}</small> : null}
+        {errors.phone ? <small id="contact-phone-error">{errors.phone}</small> : null}
       </label>
       <label className="honeypot" aria-hidden="true">
         <span>Company</span>
         <input
+          id="contact-company"
+          name="company"
           tabIndex={-1}
           value={form.company}
           onChange={(event) => updateField("company", event.target.value)}
@@ -210,20 +241,29 @@ function ContactForm() {
       <label>
         <span>Message*</span>
         <textarea
+          id="contact-message"
+          name="message"
           value={form.message}
           onChange={(event) => updateField("message", event.target.value)}
+          onBlur={(event) => validateField("message", event.target.value)}
           placeholder="Tell us about the coverage you need"
           rows={5}
           aria-invalid={Boolean(errors.message)}
+          aria-describedby={errors.message ? "contact-message-error" : undefined}
+          maxLength={CONTACT_LIMITS.messageMax}
           required
         />
-        {errors.message ? <small>{errors.message}</small> : null}
+        {errors.message ? <small id="contact-message-error">{errors.message}</small> : null}
       </label>
       <button className="btn btn-primary form-submit" disabled={status === "submitting"} type="submit">
         {status === "submitting" ? "Sending..." : "Send Message"}
         <ArrowRight size={18} aria-hidden="true" />
       </button>
-      {serverMessage ? <p className={`form-message ${status}`}>{serverMessage}</p> : null}
+      {serverMessage ? (
+        <p className={`form-message ${status}`} role={status === "error" ? "alert" : "status"} aria-live="polite">
+          {serverMessage}
+        </p>
+      ) : null}
     </form>
   );
 }

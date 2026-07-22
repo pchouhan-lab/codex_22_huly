@@ -27,6 +27,50 @@ describe("contactSubmissionSchema", () => {
     assert.equal(result.success, false);
   });
 
+  it("rejects invalid phone numbers", () => {
+    const result = contactSubmissionSchema.safeParse({
+      name: "Jane Smith",
+      email: "jane@example.com",
+      phone: "call me",
+      message: "Please contact me about auto coverage.",
+      company: ""
+    });
+
+    assert.equal(result.success, false);
+  });
+
+  it("rejects messages that are too short", () => {
+    const result = contactSubmissionSchema.safeParse({
+      name: "Jane Smith",
+      email: "jane@example.com",
+      phone: "515-555-0101",
+      message: "Hi",
+      company: ""
+    });
+
+    assert.equal(result.success, false);
+  });
+
+  it("trims valid submission values", () => {
+    const result = contactSubmissionSchema.safeParse({
+      name: " Jane Smith ",
+      email: " jane@example.com ",
+      phone: " 515-555-0101 ",
+      message: " Please contact me about auto coverage. ",
+      company: " "
+    });
+
+    assert.equal(result.success, true);
+
+    if (result.success) {
+      assert.equal(result.data.name, "Jane Smith");
+      assert.equal(result.data.email, "jane@example.com");
+      assert.equal(result.data.phone, "515-555-0101");
+      assert.equal(result.data.message, "Please contact me about auto coverage.");
+      assert.equal(result.data.company, "");
+    }
+  });
+
   it("rejects honeypot submissions", () => {
     const result = contactSubmissionSchema.safeParse({
       name: "Bot",
