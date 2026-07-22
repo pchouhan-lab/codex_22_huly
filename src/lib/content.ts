@@ -23,8 +23,12 @@ export type PublicFeatureCard = {
 
 export type PublicInsuranceCategory = {
   id: string;
+  slug: string;
   icon: string;
+  image: string;
   label: string;
+  description: string;
+  detailContent: string;
 };
 
 export type PublicSiteContent = {
@@ -142,8 +146,12 @@ export async function getPublicSiteContent(): Promise<PublicSiteContent> {
     })),
     categories: categoryRows.map((category) => ({
       id: category.id,
+      slug: category.slug,
       icon: category.icon,
-      label: category.label
+      image: category.image,
+      label: category.label,
+      description: category.description,
+      detailContent: category.detailContent
     })),
     about: {
       sectionLabel: aboutRow.sectionLabel,

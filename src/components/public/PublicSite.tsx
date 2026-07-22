@@ -370,20 +370,27 @@ export function PublicSite({ content }: { content: PublicSiteContent }) {
           </motion.div>
           <div className="category-grid">
             {content.categories.map((category, index) => (
-              <motion.article
+              <motion.a
                 className="category-card"
                 key={category.id}
+                href={`/insurance/${category.slug}`}
                 variants={reveal}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 0.5, delay: index * 0.04 }}
               >
-                <span className="category-icon">
-                  <CategoryVisual icon={category.icon} />
+                {category.image ? <img className="category-card-image" src={category.image} alt="" /> : null}
+                <span className="category-card-overlay" />
+                <span className="category-card-content">
+                  <span className="category-icon">
+                    <CategoryVisual icon={category.icon} />
+                  </span>
+                  <h3>{category.label}</h3>
+                  <p>{category.description}</p>
+                  <span className="category-card-link">Explore coverage <ArrowRight size={16} aria-hidden="true" /></span>
                 </span>
-                <h3>{category.label}</h3>
-              </motion.article>
+              </motion.a>
             ))}
           </div>
         </div>

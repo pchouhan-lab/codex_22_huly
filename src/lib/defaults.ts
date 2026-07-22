@@ -17,8 +17,12 @@ export type FeatureDefault = {
 
 export type CategoryDefault = {
   id: string;
+  slug: string;
   icon: string;
+  image: string;
   label: string;
+  description: string;
+  detailContent: string;
   published: boolean;
   order: number;
 };
@@ -99,15 +103,15 @@ export const featureCardDefaults: FeatureDefault[] = [
 ];
 
 export const categoryDefaults: CategoryDefault[] = [
-  { id: "category-auto", icon: "car", label: "Auto Insurance", published: true, order: 1 },
-  { id: "category-home", icon: "home", label: "Home Insurance", published: true, order: 2 },
-  { id: "category-recreational", icon: "sailboat", label: "Recreational Vehicles", published: true, order: 3 },
-  { id: "category-pet", icon: "paw-print", label: "Pet Insurance", published: true, order: 4 },
-  { id: "category-dental", icon: "smile-plus", label: "Dental Service", published: true, order: 5 },
-  { id: "category-disability", icon: "accessibility", label: "Disability", published: true, order: 6 },
-  { id: "category-health", icon: "heart-pulse", label: "Health Insurance", published: true, order: 7 },
-  { id: "category-workers", icon: "hard-hat", label: "Workers Compensation", published: true, order: 8 },
-  { id: "category-crop", icon: "wheat", label: "Crop Insurance", published: true, order: 9 }
+  { id: "category-auto", slug: "auto-insurance", icon: "car", image: "", label: "Auto Insurance", description: "Reliable protection for the road ahead.", detailContent: "Whether you commute, travel, or simply run errands around town, the right auto policy helps protect you, your passengers, and your vehicle. We compare coverage options to help you find a policy that fits the way you drive.", published: true, order: 1 },
+  { id: "category-home", slug: "home-insurance", icon: "home", image: "", label: "Home Insurance", description: "Confidence for the place you call home.", detailContent: "Your home is one of your most important investments. We help you review the protection for your home, belongings, and personal liability, then find coverage that suits your property and budget.", published: true, order: 2 },
+  { id: "category-recreational", slug: "recreational-vehicles", icon: "sailboat", image: "", label: "Recreational Vehicles", description: "Coverage for the vehicles that make weekends better.", detailContent: "From boats and campers to ATVs and other recreational vehicles, we can help you understand the available coverage and choose a policy for the adventures you enjoy.", published: true, order: 3 },
+  { id: "category-pet", slug: "pet-insurance", icon: "paw-print", image: "", label: "Pet Insurance", description: "Help prepare for your pet's unexpected care.", detailContent: "Pet insurance can help you plan for eligible veterinary costs when an accident or illness happens. We can discuss the available options and help you choose coverage for your companion.", published: true, order: 4 },
+  { id: "category-dental", slug: "dental-service", icon: "smile-plus", image: "", label: "Dental Service", description: "Everyday support for a healthier smile.", detailContent: "Dental plans can help make preventive care and other eligible dental services more manageable. We will help you evaluate the choices available for you and your family.", published: true, order: 5 },
+  { id: "category-disability", slug: "disability-insurance", icon: "accessibility", image: "", label: "Disability Insurance", description: "Income protection when work is interrupted.", detailContent: "Disability insurance can provide important income protection if an illness or injury keeps you from working. We can help you understand the options and select a plan that supports your household.", published: true, order: 6 },
+  { id: "category-health", slug: "health-insurance", icon: "heart-pulse", image: "", label: "Health Insurance", description: "Health coverage built around your needs.", detailContent: "Choosing health coverage involves balancing your care needs, providers, prescription costs, and budget. Our team can walk through the available plans and help you make an informed choice.", published: true, order: 7 },
+  { id: "category-workers", slug: "workers-compensation", icon: "hard-hat", image: "", label: "Workers Compensation", description: "Support for your team and your business.", detailContent: "Workers compensation coverage helps protect employees and employers after eligible work-related injuries. We can help businesses review their needs and find appropriate protection.", published: true, order: 8 },
+  { id: "category-crop", slug: "crop-insurance", icon: "wheat", image: "", label: "Crop Insurance", description: "Protection for the risks facing your operation.", detailContent: "Crop insurance can help protect against the financial effects of eligible yield and revenue losses. We work with local producers to review coverage options for their operation.", published: true, order: 9 }
 ];
 
 export const aboutSectionDefault = {

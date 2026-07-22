@@ -77,18 +77,22 @@ export const adminResources: AdminResourceConfig[] = [
   {
     key: "insurance-categories",
     title: "Insurance Categories",
-    description: "Nine coverage categories displayed in the dark grid.",
+    description: "Clickable insurance cards and their individual detail pages.",
     delegate: "insuranceCategory",
     mode: "list",
-    listFields: ["icon", "label", "published", "order"],
+    listFields: ["image", "label", "slug", "published", "order"],
     fields: [
       {
         name: "icon",
-        label: "Icon or Image",
-        type: "image",
-        helper: "Upload an image, or leave the existing icon identifier in place."
+        label: "Icon Identifier",
+        type: "text",
+        helper: "Lucide icon name used when no card image is uploaded, such as car or home."
       },
+      { name: "image", label: "Card and Detail Image", type: "image", helper: "Optional. Upload a landscape image for this insurance service." },
       { name: "label", label: "Label", type: "text", required: true },
+      { name: "slug", label: "Page URL", type: "text", required: true, helper: "Lowercase URL name, for example auto-insurance." },
+      { name: "description", label: "Card Description", type: "textarea", required: true },
+      { name: "detailContent", label: "Detail Page Content", type: "textarea", required: true },
       { name: "published", label: "Published", type: "checkbox" },
       { name: "order", label: "Order", type: "number", required: true }
     ]
