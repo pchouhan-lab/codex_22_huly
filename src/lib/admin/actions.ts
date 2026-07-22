@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { getAdminResource, type AdminField, type AdminResourceConfig } from "@/lib/admin/config";
 import { prisma } from "@/lib/prisma";
-import { saveUploadedImage } from "@/lib/uploads";
+import { isUploadedFile, saveUploadedImage } from "@/lib/uploads";
 
 async function requireAdmin() {
   const session = await getServerSession(authOptions);
@@ -63,7 +63,7 @@ async function fieldValue(field: AdminField, formData: FormData) {
     const uploaded = formData.get(field.name);
     const existing = String(formData.get(`current_${field.name}`) ?? "");
 
-    if (uploaded instanceof File && uploaded.size > 0) {
+    if (isUploadedFile(uploaded)) {
       return saveUploadedImage(uploaded, existing);
     }
 

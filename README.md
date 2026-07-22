@@ -19,6 +19,7 @@ GOOGLE_CLIENT_SECRET="..."
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET="..."
 ADMIN_EMAILS=pchouhan@starlab.co.in
+UPLOAD_DIR=
 ```
 
 3. Create and seed the SQLite database:
@@ -65,6 +66,7 @@ GOOGLE_CLIENT_SECRET="..."
 NEXTAUTH_URL="https://your-railway-domain.up.railway.app"
 NEXTAUTH_SECRET="a-long-random-secret"
 ADMIN_EMAILS=pchouhan@starlab.co.in
+UPLOAD_DIR="/app/uploads"
 ```
 
 After Railway gives you a public domain, add this callback URI in Google Cloud Console:

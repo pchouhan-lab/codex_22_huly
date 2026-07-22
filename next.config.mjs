@@ -6,7 +6,12 @@ const appDir = path.dirname(fileURLToPath(import.meta.url));
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingRoot: appDir,
-  reactStrictMode: true
+  reactStrictMode: true,
+  experimental: {
+    serverActions: {
+      bodySizeLimit: "10mb"
+    }
+  }
 };
 
 export default nextConfig;
