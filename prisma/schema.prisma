@@ -14,6 +14,7 @@ model SiteSettings {
   logoSubtext String
   navLinks    String   @default("[]")
   headerPhone String
+  contactNotificationEmail String @default("pchouhan@starlab.co.in")
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 }

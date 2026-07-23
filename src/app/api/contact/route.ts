@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendContactNotification } from "@/lib/email";
 import { prisma } from "@/lib/prisma";
 import { contactSubmissionSchema } from "@/lib/validation";
 
@@ -28,6 +29,22 @@ export async function POST(request: Request) {
       message
     }
   });
+
+  try {
+    const settings = await prisma.siteSettings.findUnique({ where: { id: "site-settings" } });
+
+    if (settings?.contactNotificationEmail) {
+      await sendContactNotification({
+        recipient: settings.contactNotificationEmail,
+        name,
+        email,
+        phone,
+        message
+      });
+    }
+  } catch (error) {
+    console.error("Contact notification email failed:", error);
+  }
 
   return NextResponse.json(
     {

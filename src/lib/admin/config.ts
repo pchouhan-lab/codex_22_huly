@@ -1,4 +1,4 @@
-export type AdminFieldType = "text" | "textarea" | "image" | "number" | "checkbox" | "stringList" | "linkList";
+export type AdminFieldType = "text" | "email" | "textarea" | "image" | "number" | "checkbox" | "stringList" | "linkList";
 
 export type AdminField = {
   name: string;
@@ -23,7 +23,7 @@ export const adminResources: AdminResourceConfig[] = [
   {
     key: "site-settings",
     title: "Site Settings",
-    description: "Logo, navigation links, and header contact details.",
+    description: "Logo, navigation links, header details, and contact-form notifications.",
     delegate: "siteSettings",
     mode: "singleton",
     singletonId: "site-settings",
@@ -39,7 +39,14 @@ export const adminResources: AdminResourceConfig[] = [
         required: true,
         helper: "One per line: Label | #anchor-or-url"
       },
-      { name: "headerPhone", label: "Header Phone", type: "text", required: true }
+      { name: "headerPhone", label: "Header Phone", type: "text", required: true },
+      {
+        name: "contactNotificationEmail",
+        label: "Contact Notification Email",
+        type: "email",
+        required: true,
+        helper: "New website contact-form submissions are emailed to this address."
+      }
     ]
   },
   {

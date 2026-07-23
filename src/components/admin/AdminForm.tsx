@@ -68,7 +68,7 @@ export function AdminForm({
             <span>{field.label}</span>
             <input
               name={field.name}
-              type={field.type === "number" ? "number" : "text"}
+              type={field.type === "number" ? "number" : field.type === "email" ? "email" : "text"}
               defaultValue={String(value ?? "")}
               required={field.required}
             />

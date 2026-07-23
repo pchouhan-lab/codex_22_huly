@@ -46,7 +46,8 @@ export const siteSettingsDefault = {
     { label: "Insurance", href: "#categories" },
     { label: "Contact Us", href: "#contact" }
   ] satisfies LinkItem[]),
-  headerPhone: "515-852-4156"
+  headerPhone: "515-852-4156",
+  contactNotificationEmail: "pchouhan@starlab.co.in"
 };
 
 export const heroDefault = {
