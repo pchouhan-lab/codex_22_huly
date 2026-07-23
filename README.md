@@ -60,7 +60,7 @@ Use repository root `.` for the Railway service. The app listens on Railway's `P
 Required Railway variables:
 
 ```bash
-DATABASE_URL="file:./dev.db"
+DATABASE_URL="file:/app/uploads/dev.db"
 GOOGLE_CLIENT_ID="..."
 GOOGLE_CLIENT_SECRET="..."
 NEXTAUTH_URL="https://your-railway-domain.up.railway.app"
